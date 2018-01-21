@@ -105,7 +105,9 @@ matrix:
       addons:
         apt:
           sources:
-            - llvm-toolchain-trusty-5.0
+            - ubuntu-toolchain-r-test
+            - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-5.0 main'
+              key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
           packages:
             - clang-5.0
       env:
@@ -116,7 +118,9 @@ matrix:
       addons:
         apt:
           sources:
-            - llvm-toolchain-trusty-4.0
+            - ubuntu-toolchain-r-test
+            - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-4.0 main'
+              key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
           packages:
             - clang-4.0
       env:
@@ -128,7 +132,8 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-3.8
+            - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.8 main'
+              key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
           packages:
             - clang-3.8
       env:
@@ -140,7 +145,8 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-3.6
+            - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.6 main'
+              key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
           packages:
             - clang-3.6
       env:
@@ -152,29 +158,12 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-3.4
+            - sourceline: 'deb http://apt.llvm.org/trusty/ llvm-toolchain-trusty-3.4 main'
+              key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
           packages:
             - clang-3.4
       env:
         - MATRIX_EVAL="CC=clang-3.4 && CXX=clang++-3.4"
-
-    # llvm
-    - os: osx
-
-    - os: osx
-      osx_image: xcode9.2
-
-    - os: osx
-      osx_image: xcode9
-
-    - os: osx
-      osx_image: xcode8
-
-    - os: osx
-      osx_image: xcode7.3
-
-    - os: osx
-      osx_image: xcode6.4
 
 before_install:
     - eval "${MATRIX_EVAL}"
