@@ -92,11 +92,22 @@ matrix:
       addons:
         apt:
           sources:
+            - llvm-toolchain-trusty-6.0
+          packages:
+            - clang-6.0
+      env:
+        - MATRIX_EVAL="CC=clang-6.0 && CXX=clang++-6.0"
+
+    - os: linux
+      dist: trusty
+      addons:
+        apt:
+          sources:
             - llvm-toolchain-trusty-5.0
           packages:
-            - clang-5
+            - clang-5.0
       env:
-        - MATRIX_EVAL="CC=clang-5 && CXX=clang++-5"
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
 
     - os: linux
       dist: trusty
@@ -105,9 +116,9 @@ matrix:
           sources:
             - llvm-toolchain-trusty-4.0
           packages:
-            - clang-4
+            - clang-4.0
       env:
-        - MATRIX_EVAL="CC=clang-4 && CXX=clang++-4"
+        - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0"
 
     - os: linux
       dist: trusty
