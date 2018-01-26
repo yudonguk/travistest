@@ -2,7 +2,7 @@ language: bash
 
 services: docker
 
-script:
+before_install:
   - bash --version
   - set -e
   - DOCKER_REPOSITORY=yudonguk/docker-test
