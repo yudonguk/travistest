@@ -2,8 +2,9 @@ language: bash
 
 services: docker
 
-before_install:
-  - apt-get -q update
-  - apt-get -yq install wget
+addons:
+  apt:
+    packages:
+      - wget
 
 script: bash test.sh
