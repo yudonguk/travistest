@@ -7,8 +7,8 @@ addons:
     packages:
       - wget
 
-dependencies:
-  cache_directories:
+cache:
+  directories:
     - "~/docker"
 
 script: bash test.sh
