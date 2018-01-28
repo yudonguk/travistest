@@ -6,7 +6,7 @@ if [[ -e ~/docker/image.tar ]]; then
   docker load -i ~/docker/image.tar;
 fi
 
-docker pull -a $DOCKER_REPOSITORY || exit 1;
+#docker pull -a $DOCKER_REPOSITORY || exit 1;
 
 for tag in $DOCKER_TAGS; do
   echo; echo;
