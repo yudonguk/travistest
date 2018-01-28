@@ -17,7 +17,7 @@ for tag in $DOCKER_TAGS; do
 
   mkdir -p "$buildDir";
 
-  buildCmd="cmake ../.. && cmake --build .;
+  buildCmd="cmake ../.. && cmake --build .";
   docker run --rm -v "$PWD":"$sourceDir" -w "$sourceDir/$buildDir" $DOCKER_REPOSITORY:$tag bash -c "$buildCmd";
   if [ $? -ne 0 ]; then
     exit 1
