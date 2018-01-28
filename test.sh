@@ -1,4 +1,4 @@
-
+set -e
 DOCKER_REPOSITORY=yudonguk/bicomc-docker
 DOCKER_TAGS=`wget -qO - https://registry.hub.docker.com/v1/repositories/$DOCKER_REPOSITORY/tags | grep -Eo '(?:"name"\s*:\s*)"[^"]+"' | grep -Eo '"[^"]+"$' | grep -Eo '[^"]+'`
 
