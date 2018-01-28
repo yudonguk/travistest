@@ -2,7 +2,7 @@
 DOCKER_REPOSITORY=yudonguk/bicomc-docker
 DOCKER_TAGS=`wget -qO - https://registry.hub.docker.com/v1/repositories/$DOCKER_REPOSITORY/tags | grep -Eo '(?:"name"\s*:\s*)"[^"]+"' | grep -Eo '"[^"]+"$' | grep -Eo '[^"]+'`
 
-mkdir -p docker
+#mkdir -p docker
 #docker pull -a $DOCKER_REPOSITORY || exit 1;
 
 for tag in $DOCKER_TAGS; do
