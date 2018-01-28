@@ -2,6 +2,10 @@
 DOCKER_REPOSITORY=yudonguk/bicomc-docker
 DOCKER_TAGS=`wget -qO - https://registry.hub.docker.com/v1/repositories/$DOCKER_REPOSITORY/tags | grep -Eo '(?:"name"\s*:\s*)"[^"]+"' | grep -Eo '"[^"]+"$' | grep -Eo '[^"]+'`
 
+if [[ -e ~/docker/image.tar ]]; then
+  docker load -i ~/docker/image.tar;
+fi
+
 docker pull -a $DOCKER_REPOSITORY || exit 1;
 
 for tag in $DOCKER_TAGS; do
@@ -19,3 +23,6 @@ for tag in $DOCKER_TAGS; do
     exit 1
   fi
 done
+
+mkdir -p ~/docker
+docker save $DOCKER_REPOSITORY > ~/docker/image.tar
