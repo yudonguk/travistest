@@ -8,9 +8,6 @@ fi
 
 docker pull -a $DOCKER_REPOSITORY || exit 1;
 
-mkdir -p ~/docker
-docker save $DOCKER_REPOSITORY > ~/docker/image.tar
-
 for tag in $DOCKER_TAGS; do
   echo; echo;
   echo -e "\x1B[34m-- Compiler: $tag\x1B[0m";
@@ -26,3 +23,6 @@ for tag in $DOCKER_TAGS; do
     exit 1
   fi
 done
+
+mkdir -p ~/docker
+docker save -o ~/docker/image.tar $DOCKER_REPOSITORY
