@@ -9,6 +9,6 @@ addons:
 
 dependencies:
   cache_directories:
-    - "~/docker"
+    - docker
 
 script: bash test.sh
