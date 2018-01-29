@@ -13,6 +13,11 @@ dependencies:
 
 script:
   - DOCKER_REPOSITORY=yudonguk/bicomc-docker
-  - DOCKER_TAGS=`wget -qO - https://registry.hub.docker.com/v1/repositories/$DOCKER_REPOSITORY/tags | grep -Eo '(?:"name"\s*:\s*)"[^"]+"' | grep -Eo '"[^"]+"$' | grep -Eo '[^"]+'`
-  - echo $DOCKER_TAGS
+  - DOCKER_TAGS=$(wget -qO - https://registry.hub.docker.com/v1/repositories/$DOCKER_REPOSITORY/tags | grep -Eo '(?:"name"\s*:\s*)"[^"]+"' | grep -Eo '"[^"]+"$' | grep -Eo '[^"]+')
+  -
+  - mkdir -p docker
+  - for tag in $DOCKER_TAGS; do
+      echo; echo;
+      echo -e "\x1B[34m-- Compiler: $tag\x1B[0m";
+    done
 
