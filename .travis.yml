@@ -2,24 +2,13 @@ language: bash
 
 services: docker
 
-cache:
-  directories:
-    - docker
-
-before_script:
-  - export DOCKER_TAG=$(echo $DOCKER_IMAGE | grep -Eo '[^:]+$')
-  - mkdir -p docker
-  - docker load -i docker/${DOCKER_TAG}.tar || docker pull $DOCKER_IMAGE
+before_install:
+  - docker pull $DOCKER_IMAGE
 
 script:
   - mkdir -p build
-  - buildCmd="cmake .. -DCMAKE_BUILD_TYPE=Debug && cmake --build . && ctest -C Debug"
-  - docker run --rm -v "$PWD":"/root/bicomc" -w "/root/bicomc/build" $DOCKER_IMAGE bash -c "$buildCmd"
-
-before_cache:
-  - cd docker
-  - docker save -o ${DOCKER_TAG}.tar.tmp $DOCKER_IMAGE || rm ${DOCKER_TAG}.tar.tmp; true
-  - mv -f ${DOCKER_TAG}.tar.tmp ${DOCKER_TAG}.tar || true
+  - command="cmake .. -DCMAKE_BUILD_TYPE=Debug && cmake --build . && ctest -C Debug"
+  - docker run --rm -v "$PWD":"/root/bicomc" -w "/root/bicomc/build" $DOCKER_IMAGE bash -c "$command"
 
 matrix:
   include:
@@ -29,7 +18,7 @@ matrix:
       env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-7.2"
     - os: linux
       env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-6.4"
-    - os: linux`
+    - os: linux
       env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-5.5"
     - os: linux
       env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.9"
