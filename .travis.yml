@@ -14,7 +14,7 @@ before_script:
 script:
   - mkdir -p build
   - buildCmd="cmake .. -DCMAKE_BUILD_TYPE=Debug && cmake --build . && ctest -C Debug"
-  - docker run --rm -v "$PWD":"/root/bicomc" -w "/root/bicomc/build" bash -c "$buildCmd"
+  - docker run --rm -v "$PWD":"/root/bicomc" -w "/root/bicomc/build" $DOCKER_IMAGE bash -c "$buildCmd"
 
 before_cache:
   - docker save -o docker/${DOCKER_TAG}.tar $DOCKER_IMAGE || true
