@@ -7,15 +7,23 @@ addons:
     packages:
       - wget
 
-dependencies:
-  cache_directories:
-    - docker
+script: uname -a
 
-script:
-  - |
-    CMD=$(
-    DOCKER_REPOSITORY=yudonguk/bicomc-docker;
-    DOCKER_TAGS=$(wget -qO - https://registry.hub.docker.com/v1/repositories/$DOCKER_REPOSITORY/tags | grep -Eo '(?:"name"\s*:\s*)"[^"]+"' | grep -Eo '"[^"]+"$' | grep -Eo '[^"]+');
-    echo $DOCKER_TAGS;
-    )
-  - eval $CMD  
+matrix:
+  include:
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-latest"
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-7.2"
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-6.4"
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-5.5"
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.9"
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.8"
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.6"
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.4"
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-latest"
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-6.0"
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-5.0"
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-4.0"
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-3.8"
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-3.6"
+    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-3.4"
+
