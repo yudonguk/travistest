@@ -2,28 +2,52 @@ language: bash
 
 services: docker
 
-addons:
-  apt:
-    packages:
-      - wget
+cache:
+  directories:
+    - docker
 
-script: uname -a
+before_script:
+  - export DOCKER_TAG=$(echo $DOCKER_IMAGE | grep -Eo '[^:]+$')
+  - mkdir -p docker
+  - docker load -i docker/${DOCKER_TAG}.tar || docker pull $DOCKER_IMAGE
+
+script:
+  - mkdir -p build
+  - buildCmd="cmake .. -DCMAKE_BUILD_TYPE=Debug && cmake --build . && ctest -C Debug"
+  - docker run --rm -v "$PWD":"/root/bicomc" -w "/root/bicomc/build" bash -c "$buildCmd"
+
+before_cache:
+  - docker save -o docker/${DOCKER_TAG}.tar $DOCKER_IMAGE || true
 
 matrix:
   include:
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-latest"
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-7.2"
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-6.4"
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-5.5"
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.9"
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.8"
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.6"
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.4"
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-latest"
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-6.0"
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-5.0"
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-4.0"
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-3.8"
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-3.6"
-    - env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-3.4"
-
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-latest"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-7.2"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-6.4"
+    - os: linux`
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-5.5"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.9"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.8"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.6"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:gcc-4.4"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-latest"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-6.0"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-5.0"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-4.0"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-3.8"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-3.6"
+    - os: linux
+      env: DOCKER_IMAGE="yudonguk/bicomc-docker:clang-3.4"
