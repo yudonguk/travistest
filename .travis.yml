@@ -17,7 +17,9 @@ script:
   - docker run --rm -v "$PWD":"/root/bicomc" -w "/root/bicomc/build" $DOCKER_IMAGE bash -c "$buildCmd"
 
 before_cache:
-  - docker save -o docker/${DOCKER_TAG}.tar $DOCKER_IMAGE || true
+  - cd docker
+  - docker save -o ${DOCKER_TAG}.tar.tmp $DOCKER_IMAGE || rm ${DOCKER_TAG}.tar.tmp; true
+  - mv -f ${DOCKER_TAG}.tar.tmp ${DOCKER_TAG}.tar || true
 
 matrix:
   include:
