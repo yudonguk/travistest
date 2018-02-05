@@ -1,7 +1,7 @@
 build_script:
   - mkdir -p build && cd build
-  - cmake .. -G "%COMPILER%" -DCMAKE_BUILD_TYPE=Debug
-  - cmake --build .
+  - cmake .. -G "%COMPILER%"
+  - cmake --build . --config Debug
 
 test_script:
   - ctest -C Debug
