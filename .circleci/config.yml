@@ -3,13 +3,11 @@ version: 2
 .build-script-template:
   default: &build-script
     - checkout
-    - run: mkdir -p build && cd build && pwd
-    - run: pwd
-    - run: ls -al
-    - run: cmake .. -DCMAKE_BUILD_TYPE=Debug
-    - run: cmake --build .
-    - run: ctest -C Debug
-
+    - run: |
+        mkdir -p build && cd build
+        cmake .. -DCMAKE_BUILD_TYPE=Debug
+        cmake --build .
+        ctest -C Debug
 jobs:
   # GCC
   build:
