@@ -4,6 +4,7 @@ version: 2
   default: &build-script
     - checkout
     - run: mkdir -p build && cd build
+    - run: pwd
     - run: ls -al
     - run: cmake .. -DCMAKE_BUILD_TYPE=Debug
     - run: cmake --build .
