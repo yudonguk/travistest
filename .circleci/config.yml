@@ -8,66 +8,23 @@ version: 2
         cmake .. -DCMAKE_BUILD_TYPE=Debug
         cmake --build .
         ctest -C Debug
+
 jobs:
-  # GCC
   build:
     steps: *build-script
     docker:
       - image: yudonguk/bicomc-docker:gcc-latest
-  build:
-    steps: *build-script
-    docker:
       - image: yudonguk/bicomc-docker:gcc-7.2
-  build:
-    steps: *build-script
-    docker:
       - image: yudonguk/bicomc-docker:gcc-6.4
-  build:
-    steps: *build-script
-    docker:
       - image: yudonguk/bicomc-docker:gcc-5.5
-  build:
-    steps: *build-script
-    docker:
       - image: yudonguk/bicomc-docker:gcc-4.9
-  build:
-    steps: *build-script
-    docker:
       - image: yudonguk/bicomc-docker:gcc-4.8
-  build:
-    steps: *build-script
-    docker:
       - image: yudonguk/bicomc-docker:gcc-4.6
-  build:
-    steps: *build-script
-    docker:
       - image: yudonguk/bicomc-docker:gcc-4.4
-  # Clang
-  build:
-    steps: *build-script
-    docker:
       - image: yudonguk/bicomc-docker:clang-latest
-  build:
-    steps: *build-script
-    docker:
       - image: yudonguk/bicomc-docker:clang-6.0
-  build:
-    steps: *build-script
-    docker:
       - image: yudonguk/bicomc-docker:clang-5.0
-  build:
-    steps: *build-script
-    docker:
       - image: yudonguk/bicomc-docker:clang-4.0
-  build:
-    steps: *build-script
-    docker:
       - image: yudonguk/bicomc-docker:clang-3.8
-  build:
-    steps: *build-script
-    docker:
       - image: yudonguk/bicomc-docker:clang-3.6
-  build:
-    steps: *build-script
-    docker:
       - image: yudonguk/bicomc-docker:clang-3.4
